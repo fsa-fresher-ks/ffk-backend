@@ -6,8 +6,9 @@ services:
     environment:
       MYSQL_DATABASE: ffk
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "3306:3306"
+# Comment-out for production deployment
+#    ports:
+#      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
