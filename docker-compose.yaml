@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 5
   backend:
-    image: ffk-backend:latest
+    image: censodev/ffk-backend:latest
     build: .
     ports:
       - "8080:8080"

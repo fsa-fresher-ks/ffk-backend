@@ -20,3 +20,15 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker Push
         run: docker push censodev/ffk-backend:latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH action
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+      - name: Run docker-compose
+        run: cd ~/ffk-backend && docker compose up -d
