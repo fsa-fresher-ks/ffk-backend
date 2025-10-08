@@ -31,4 +31,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
       - name: Run docker-compose
-        run: cd ~/ffk-backend && docker compose up -d
+        run: cd /home/ffk-backend && docker compose up -d
