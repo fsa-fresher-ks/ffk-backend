@@ -1,7 +1,6 @@
 package fsa.fresher.pos.user;
 
 import fsa.fresher.pos.api.dto.*;
-import fsa.fresher.pos.api.dto.*;
 import fsa.fresher.pos.api.mapper.UserMapper;
 import fsa.fresher.pos.common.ApiException;
 import jakarta.validation.Valid;
@@ -21,9 +20,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    private final UserService service;
+    private final UserServiceImpl service;
 
-    public UserController(UserService service) {
+    public UserController(UserServiceImpl service) {
         this.service = service;
     }
 
