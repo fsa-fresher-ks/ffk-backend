@@ -74,10 +74,30 @@ public class UserController {
         Sort sort = Sort.unsorted();
         if (sortParams != null && !sortParams.isEmpty()) {
             List<Sort.Order> orders = new ArrayList<>();
-            for (String s : sortParams) {
-                String[] parts = s.split(",");
-                String property = parts[0];
-                Sort.Direction dir = (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) ? Sort.Direction.DESC : Sort.Direction.ASC;
+            for (int i = 0; i < sortParams.size(); i++) {
+                String token = sortParams.get(i);
+                String property;
+                Sort.Direction dir = Sort.Direction.ASC;
+
+                if (token.contains(",")) {
+                    String[] parts = token.split(",");
+                    property = parts[0];
+                    if (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) {
+                        dir = Sort.Direction.DESC;
+                    }
+                } else {
+                    property = token;
+                    if (i + 1 < sortParams.size()) {
+                        String next = sortParams.get(i + 1);
+                        if ("desc".equalsIgnoreCase(next)) {
+                            dir = Sort.Direction.DESC;
+                            i++; // consume direction token
+                        } else if ("asc".equalsIgnoreCase(next)) {
+                            dir = Sort.Direction.ASC;
+                            i++; // consume direction token
+                        }
+                    }
+                }
                 orders.add(new Sort.Order(dir, property));
             }
             sort = Sort.by(orders);
